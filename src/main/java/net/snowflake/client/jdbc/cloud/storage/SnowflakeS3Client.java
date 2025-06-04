@@ -84,7 +84,7 @@ public class SnowflakeS3Client implements SnowflakeStorageClient {
   private static final String S3_STREAMING_INGEST_CLIENT_KEY = "ingestclientkey";
 
   // expired AWS token error code
-  private static final String EXPIRED_AWS_TOKEN_ERROR_CODE = "ExpiredToken";
+  protected static final String EXPIRED_AWS_TOKEN_ERROR_CODE = "ExpiredToken";
 
   private int encryptionKeySize = 0; // used for PUTs
   private AmazonS3 amazonClient = null;
@@ -941,7 +941,7 @@ public class SnowflakeS3Client implements SnowflakeStorageClient {
    * @param ex exception
    * @return true if it's a 400 or 404 status code
    */
-  public boolean isClientException400Or404(Exception ex) {
+  public static boolean isClientException400Or404(Exception ex) {
     if (ex instanceof AmazonServiceException) {
       AmazonServiceException asEx = (AmazonServiceException) (ex);
       return asEx.getStatusCode() == HttpStatus.SC_NOT_FOUND
